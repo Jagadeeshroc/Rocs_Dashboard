@@ -7,9 +7,8 @@ import type { Status } from '../types';
 import { Search, Filter, Map as MapIcon, Table as TableIcon } from 'lucide-react';
 
 export const Dashboard = () => {
-    // Generate data only once. User asked for "more 800 hundred" which implies a lot.
-    // Let's go with 10,000 to be safe and performant.
-    const initialData = useMemo(() => generateData(10000), []);
+    // Generate data only once.
+    const initialData = useMemo(() => generateData(6000), []);
     const [data] = useState(initialData);
 
     const [search, setSearch] = useState('');
@@ -34,7 +33,7 @@ export const Dashboard = () => {
                         <MapIcon className="w-6 h-6 text-sky-400" />
                     </div>
                     <h1 className="text-xl font-bold bg-gradient-to-r from-sky-400 to-indigo-400 bg-clip-text text-transparent">
-                        GeoDash <span className="text-slate-500 font-medium text-sm ml-2">v1.0</span>
+                        ROCsDashboard <span className="text-slate-500 font-medium text-sm ml-2">v1.0</span>
                     </h1>
                 </div>
 
