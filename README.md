@@ -36,8 +36,15 @@ A high-performance React application to visualize spatial and tabular data.
 3. **Data**:
    - Mock data is generated purely on the client-side (`src/utils/mockData.ts`) to simulate a fresh dataset on each load.
 
+
+## Deployment
+- **GitHub Pages**: Supported (via `gh-pages` branch).
+- **Vercel**: Supported (auto-detects from `main` branch).
+  - *Note*: `vite.config.ts` base path must be set to `/` for Vercel.
+
 ## Time Spent
 - **Initialization & Config**: 10 mins (Vite, Tailwind, Dependencies)
 - **Core Components**: 20 mins (Map, Table, Dashboard)
 - **Refining & Fixes**: 10 mins (TypeScript strictness, Build verification)
-- **Total**: ~40 Minutes
+- **Deployment Setup**: 20 mins (GitHub Actions, Vercel Config)
+- **Total**: ~60 Minutes
