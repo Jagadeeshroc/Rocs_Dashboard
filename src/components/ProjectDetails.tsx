@@ -1,12 +1,13 @@
 import type { Project } from '../types';
-import { X, Calendar, DollarSign, User, Activity } from 'lucide-react';
+import { X, Calendar, DollarSign, User, Activity, Map as MapIcon } from 'lucide-react';
 
 interface ProjectDetailsProps {
     project: Project | null;
     onClose: () => void;
+    onViewOnMap: () => void;
 }
 
-export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
+export const ProjectDetails = ({ project, onClose, onViewOnMap }: ProjectDetailsProps) => {
     if (!project) return null;
 
     return (
@@ -107,8 +108,15 @@ export const ProjectDetails = ({ project, onClose }: ProjectDetailsProps) => {
             </div>
 
             {/* Footer */}
-            <div className="p-4 border-t border-slate-800 bg-slate-900">
-                <button className="w-full py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg font-medium transition-colors text-sm">
+            <div className="p-4 border-t border-slate-800 bg-slate-900 flex gap-3">
+                <button
+                    onClick={onViewOnMap}
+                    className="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg font-medium transition-colors text-sm flex items-center justify-center gap-2"
+                >
+                    <MapIcon className="w-4 h-4" />
+                    See on Map
+                </button>
+                <button className="flex-1 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg font-medium transition-colors text-sm">
                     View Full Report
                 </button>
             </div>

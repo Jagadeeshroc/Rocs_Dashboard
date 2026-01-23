@@ -14,6 +14,7 @@ export const Dashboard = () => {
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState<Status | 'All'>('All');
     const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
     // Derived state for filtering
     const filteredData = useMemo(() => {
@@ -90,7 +91,10 @@ export const Dashboard = () => {
                     <DataTable
                         data={filteredData}
                         selectedId={selectedId}
-                        onSelect={setSelectedId}
+                        onSelect={(id) => {
+                            setSelectedId(id);
+                            setIsDetailsOpen(true);
+                        }}
                     />
                 </div>
 
@@ -102,14 +106,23 @@ export const Dashboard = () => {
                     <MapView
                         data={filteredData}
                         selectedId={selectedId}
-                        onSelect={setSelectedId}
+                        onSelect={(id) => {
+                            setSelectedId(id);
+                            setIsDetailsOpen(true);
+                        }}
                     />
 
                     {/* Detailed View Overlay */}
-                    <ProjectDetails
-                        project={data.find(p => p.id === selectedId) || null}
-                        onClose={() => setSelectedId(null)}
-                    />
+                    {isDetailsOpen && (
+                        <ProjectDetails
+                            project={data.find(p => p.id === selectedId) || null}
+                            onClose={() => {
+                                setIsDetailsOpen(false);
+                                setSelectedId(null);
+                            }}
+                            onViewOnMap={() => setIsDetailsOpen(false)}
+                        />
+                    )}
                 </div>
             </main>
         </div>
