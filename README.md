@@ -1,5 +1,7 @@
 # GeoData Dashboard
 
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://rocsgeodashboard.vercel.app/)
+
 A high-performance React application to visualize spatial and tabular data.
 
 ## Features
