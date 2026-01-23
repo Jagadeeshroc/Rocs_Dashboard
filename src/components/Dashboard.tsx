@@ -78,7 +78,7 @@ export const Dashboard = () => {
 
             {/* Main Content */}
             {/* Main Content */}
-            <main className="flex-1 p-4 flex flex-col lg:grid lg:grid-cols-3 gap-4 overflow-y-auto lg:overflow-hidden relative custom-scrollbar">
+            <main className="flex-1 p-4 flex flex-col lg:grid lg:grid-cols-3 gap-4 overflow-y-auto lg:overflow-hidden relative custom-scrollbar min-h-0">
                 {/* Left Panel: Table */}
                 <div className="lg:col-span-1 h-[500px] lg:h-full flex flex-col gap-2 shrink-0">
                     <div className="flex items-center justify-between px-1">

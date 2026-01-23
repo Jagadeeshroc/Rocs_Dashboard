@@ -53,32 +53,54 @@ export const MapView = ({ data, selectedId, onSelect }: MapViewProps) => {
                     </LayersControl.BaseLayer>
                 </LayersControl>
 
-                {data.map((project) => (
+                {/* Static Markers - Memoized to prevent re-render on selection */}
+                {useMemo(() => (
+                    <>
+                        {data.map((project) => (
+                            <CircleMarker
+                                key={project.id}
+                                center={[project.lat, project.lng]}
+                                radius={4}
+                                pathOptions={{
+                                    color: '#ffffff',
+                                    fillColor: project.status === 'Alert' ? '#f43f5e' :
+                                        project.status === 'Active' ? '#10b981' :
+                                            project.status === 'Completed' ? '#3b82f6' : '#f59e0b',
+                                    fillOpacity: 0.8,
+                                    weight: 0,
+                                }}
+                                eventHandlers={{
+                                    click: () => onSelect(project.id)
+                                }}
+                            />
+                        ))}
+                    </>
+                ), [data, onSelect])}
+
+                {/* Selected Marker - Rendered nicely on top */}
+                {selectedProject && (
                     <CircleMarker
-                        key={project.id}
-                        center={[project.lat, project.lng]}
-                        radius={selectedId === project.id ? 8 : 4}
+                        center={[selectedProject.lat, selectedProject.lng]}
+                        radius={8}
                         pathOptions={{
-                            color: selectedId === project.id ? '#a855f7' : '#ffffff',
-                            fillColor: project.status === 'Alert' ? '#f43f5e' :
-                                project.status === 'Active' ? '#10b981' :
-                                    project.status === 'Completed' ? '#3b82f6' : '#f59e0b',
-                            fillOpacity: 0.8,
-                            weight: selectedId === project.id ? 3 : 0,
-                        }}
-                        eventHandlers={{
-                            click: () => onSelect(project.id)
+                            color: '#a855f7',
+                            fillColor: selectedProject.status === 'Alert' ? '#f43f5e' :
+                                selectedProject.status === 'Active' ? '#10b981' :
+                                    selectedProject.status === 'Completed' ? '#3b82f6' : '#f59e0b',
+                            fillOpacity: 1,
+                            weight: 3,
                         }}
                     >
                         <Popup>
                             <div className="text-slate-800">
-                                <h3 className="font-bold text-sm">{project.projectName}</h3>
-                                <p className="text-xs">Status: {project.status}</p>
-                                <p className="text-xs text-slate-500">Lat: {project.lat.toFixed(2)}, Lng: {project.lng.toFixed(2)}</p>
+                                <h3 className="font-bold text-sm">{selectedProject.projectName}</h3>
+                                <p className="text-xs">Status: {selectedProject.status}</p>
+                                <p className="text-xs text-slate-500">Lat: {selectedProject.lat.toFixed(2)}, Lng: {selectedProject.lng.toFixed(2)}</p>
                             </div>
                         </Popup>
                     </CircleMarker>
-                ))}
+                )}
+
                 <MapController selectedLocation={selectedProject ? [selectedProject.lat, selectedProject.lng] : undefined} />
             </MapContainer>
         </div>
